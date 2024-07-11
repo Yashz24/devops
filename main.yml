@@ -1,0 +1,21 @@
+name: CI - Build and Test
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build and test
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: yourusername/rps-game:latest
+
+      - name: Run tests
+        run: docker run yourusername/rps-game:latest unittest RPS.py
